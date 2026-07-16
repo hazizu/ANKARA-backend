@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
+
   // Référence vers la collection
   productCollection: {
     type: mongoose.Schema.Types.ObjectId,
