@@ -36,3 +36,5 @@ Date : ${new Date(order.createdAt).toLocaleString('fr-FR')}
     `,
   });
 };
+
+module.exports = { sendOrderEmail};
