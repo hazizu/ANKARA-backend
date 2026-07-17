@@ -1,42 +1,30 @@
-const nodemailer = require('nodemailer');
-
-// ─── Email ───────────────────────────────────────────
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',      // ✅ toujours cette valeur pour Gmail
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.MAIL_USER,   // ton adresse Gmail
-    pass: process.env.MAIL_PASS,   // mot de passe d'application
-  },
-});
+const Resend = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendOrderEmail = async (order) => {
   const itemsList = order.orderedProducts
-    .map(item => `- ${item.product.name} x${item.quantity} = ${item.price * item.quantity} FCFA`)
-    .join('\n');
+    .map(item => `• ${item.product.name} x${item.quantity} = ${item.price * item.quantity} FCFA`)
+    .join('<br/>');
 
-  await transporter.sendMail({
-    from: `"ANKARA Boutique" <${process.env.MAIL_USER}>`,
+  await resend.emails.send({
+    from: 'ANKARA Boutique <onboarding@resend.dev>',  // domaine Resend par défaut
     to: process.env.OWNER_EMAIL,
     subject: `🛍️ Nouvelle commande - ${order.client.name}`,
-    text: `
-Nouvelle commande reçue !
-
-👤 Client : ${order.client.name}
-📞 Téléphone : ${order.client.phone}
-📍 Adresse : ${order.client.deliveryAddress}
-
-🛒 Articles :
-${itemsList}
-
-💰 Total : ${order.totalAmount} FCFA
-
-📝 Notes : ${order.clientNotes || 'Aucune'}
-
-Date : ${new Date(order.createdAt).toLocaleString('fr-FR')}
+    html: `
+      <h2>Nouvelle commande reçue !</h2>
+      <p>👤 <b>Client :</b> ${order.client.name}</p>
+      <p>📞 <b>Téléphone :</b> ${order.client.phone}</p>
+      <p>📍 <b>Adresse :</b> ${order.client.deliveryAddress}</p>
+      <hr/>
+      <p>🛒 <b>Articles :</b></p>
+      <p>${itemsList}</p>
+      <hr/>
+      <p>💰 <b>Total : ${order.totalAmount} FCFA</b></p>
+      <p>📝 <b>Notes :</b> ${order.clientNotes || 'Aucune'}</p>
     `,
   });
 };
 
-module.exports = { sendOrderEmail};
+module.exports = {
+  sendOrderEmail,
+};
