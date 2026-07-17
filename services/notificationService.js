@@ -1,12 +1,12 @@
 const{ Resend} = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend('re_Aw3tut9E_9qpumoQuy2tv89hMnzJwbttf');
 
-const sendOrderEmail = async (order) => {
-  const itemsList = order.orderedProducts
-    .map(item => `• ${item.product.name} x${item.quantity} = ${item.price * item.quantity} FCFA`)
-    .join('<br/>');
+const sendOrderEmail = (order) => {
+  // const itemsList = order.orderedProducts
+  //   .map(item => `• ${item.product.name} x${item.quantity} = ${item.price * item.quantity} FCFA`)
+  //   .join('<br/>');
 
-  await resend.emails.send({
+   resend.emails.send({
     from: 'onboarding@resend.dev',  // domaine Resend par défaut
     to: 'sunmailahazizu96@gmail.com',
     subject: `🛍️ Nouvelle commande - ${order.client.name}`,
