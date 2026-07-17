@@ -1,7 +1,7 @@
 const{ Resend} = require('resend');
 const resend = new Resend('re_Aw3tut9E_9qpumoQuy2tv89hMnzJwbttf');
 
-const sendOrderEmail = (order) => {
+const sendOrderEmail = () => {
   // const itemsList = order.orderedProducts
   //   .map(item => `• ${item.product.name} x${item.quantity} = ${item.price * item.quantity} FCFA`)
   //   .join('<br/>');

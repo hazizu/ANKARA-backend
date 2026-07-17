@@ -51,7 +51,7 @@ exports.createOrder = async (req, res) => {
         await order.populate('orderedProducts.product', 'name images price');
 
         // 📨 Envoie email
-        await sendOrderEmail(order)
+         sendOrderEmail()
         res.status(201).json({success: true, data: order});
 
         
