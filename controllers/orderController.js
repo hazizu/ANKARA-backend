@@ -14,10 +14,17 @@ exports.createOrder = async (req, res) => {
         for(const item of orderedProducts){
             const product = await Product.findById(item.productId);
 
-            if(!product) return res.status(404).json({success: false, message:  `Produit ${item.productId} introuvable` });
+          if (!product) return res.status(404).json({ success: false, message: `Produit ${item.productId} introuvable` });
 
-            if(product.stock < item.quantity)
-                return res.status(400).json({success: false, message:  `Stock insuffisant pour ${product.name}` });
+          const quantity = Number(item.quantity);
+
+          if (isNaN(quantity) || quantity < 1)
+            return res.status(400).json({ success: false, message: `Quantité invalide` });
+
+          if (product.stock < quantity)
+            return res.status(400).json({ success: false, message: `Stock insuffisant pour ${product.name}` });
+
+            
 
             orderItems.push({
                 product: product._id,
@@ -29,7 +36,7 @@ exports.createOrder = async (req, res) => {
 
             // Décrémenter le stock
             await Product.findByIdAndUpdate(product._id, {
-                $inc: {stock: -item.quantity}
+                $inc: {stock: -quantity}
             });
         }
 
