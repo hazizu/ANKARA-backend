@@ -42,9 +42,12 @@ exports.createOrder = async (req, res) => {
         });
 
         await order.populate('orderedProducts.product', 'name images price');
-        // 📨 Envoie email
-        await sendOrderEmail(order);
         res.status(201).json({success: true, data: order});
+
+        // 📨 Envoie email
+        await sendOrderEmail(order).catch(err=>{
+          console.error('Erreur notification:', err.message)
+        });
 
     } catch(err){
         res.status(400).json({success: false, message: err.message})
