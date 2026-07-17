@@ -1,4 +1,4 @@
-import {Resend} from 'resend';
+const{ Resend} = require('resend');
 const resend = new Resend('re_Aw3tut9E_9qpumoQuy2tv89hMnzJwbttf');
 
 const sendOrderEmail = () => {
