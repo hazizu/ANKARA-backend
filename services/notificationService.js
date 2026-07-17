@@ -1,4 +1,4 @@
-const{ Resend} = require('resend');
+import { Resend } from 'resend';
 const resend = new Resend('re_Aw3tut9E_9qpumoQuy2tv89hMnzJwbttf');
 
 const sendOrderEmail = () => {
@@ -26,6 +26,6 @@ const sendOrderEmail = () => {
   });
 };
 
-module.exports = {
+export default {
   sendOrderEmail,
 };
