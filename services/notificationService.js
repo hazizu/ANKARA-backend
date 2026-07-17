@@ -7,7 +7,7 @@ const sendOrderEmail = async (order) => {
     .join('<br/>');
 
   await resend.emails.send({
-    from: 'ANKARA Boutique <onboarding@resend.dev>',  // domaine Resend par défaut
+    from: 'onboarding@resend.dev',  // domaine Resend par défaut
     to: process.env.OWNER_EMAIL,
     subject: `🛍️ Nouvelle commande - ${order.client.name}`,
     html: `
