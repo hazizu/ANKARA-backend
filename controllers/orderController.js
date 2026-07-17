@@ -1,5 +1,6 @@
 const Order = require('../models/order');
 const Product = require('../models/product');
+const sendOrderEmail = require('../services/notificationService');
 
 // Créer une commande
 exports.createOrder = async (req, res) => {
@@ -41,6 +42,8 @@ exports.createOrder = async (req, res) => {
         });
 
         await order.populate('orderedProducts.product', 'name images price');
+        // 📨 Envoie email
+        sendOrderEmail(order);
         res.status(201).json({success: true, data: order});
 
     } catch(err){
