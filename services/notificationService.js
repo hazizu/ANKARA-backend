@@ -9,7 +9,7 @@ const sendOrderEmail = () => {
    resend.emails.send({
     from: 'onboarding@resend.dev',  // domaine Resend par défaut
     to: 'sunmailahazizu96@gmail.com',
-    subject: `🛍️ Nouvelle commande - ${order.client.name}`,
+    subject: `🛍️ Nouvelle commande `,
      html: '<p>Congrats on sending your <strong>first email</strong>!</p>',
     // html: `
     //   <h2>Nouvelle commande reçue !</h2>
