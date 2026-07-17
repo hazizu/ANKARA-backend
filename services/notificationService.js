@@ -8,20 +8,21 @@ const sendOrderEmail = async (order) => {
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',  // domaine Resend par défaut
-    to: process.env.OWNER_EMAIL,
+    to: 'sunmailahazizu96@gmail.com',
     subject: `🛍️ Nouvelle commande - ${order.client.name}`,
-    html: `
-      <h2>Nouvelle commande reçue !</h2>
-      <p>👤 <b>Client :</b> ${order.client.name}</p>
-      <p>📞 <b>Téléphone :</b> ${order.client.phone}</p>
-      <p>📍 <b>Adresse :</b> ${order.client.deliveryAddress}</p>
-      <hr/>
-      <p>🛒 <b>Articles :</b></p>
-      <p>${itemsList}</p>
-      <hr/>
-      <p>💰 <b>Total : ${order.totalAmount} FCFA</b></p>
-      <p>📝 <b>Notes :</b> ${order.clientNotes || 'Aucune'}</p>
-    `,
+     html: '<p>Congrats on sending your <strong>first email</strong>!</p>',
+    // html: `
+    //   <h2>Nouvelle commande reçue !</h2>
+    //   <p>👤 <b>Client :</b> ${order.client.name}</p>
+    //   <p>📞 <b>Téléphone :</b> ${order.client.phone}</p>
+    //   <p>📍 <b>Adresse :</b> ${order.client.deliveryAddress}</p>
+    //   <hr/>
+    //   <p>🛒 <b>Articles :</b></p>
+    //   <p>${itemsList}</p>
+    //   <hr/>
+    //   <p>💰 <b>Total : ${order.totalAmount} FCFA</b></p>
+    //   <p>📝 <b>Notes :</b> ${order.clientNotes || 'Aucune'}</p>
+    // `,
   });
 };
 
